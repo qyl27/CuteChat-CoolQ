@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -18,7 +19,7 @@ namespace cx.rain.cq.cutechat.Code
 
                 CuteChat.Sockets.Add(client);
 
-                while(client.Connected)
+                while(true)
                 {
                     byte[] recv_buffer = new byte[1024 * 1024 * 10];
                     string message_data = "";
@@ -40,12 +41,18 @@ namespace cx.rain.cq.cutechat.Code
 
         public static void Send(string str)
         {
-            var bytes = Encoding.UTF8.GetBytes(str);
             foreach (var socket in CuteChat.Sockets)
             {
                 try
                 {
-                    socket.Send(bytes);
+                    using (var stream = new NetworkStream(socket))
+                    {
+                        using (var writer = new StreamWriter(stream))
+                        {
+                            writer.WriteLine(str);
+                            writer.Flush();
+                        }
+                    }
                 }
                 catch (Exception)
                 {

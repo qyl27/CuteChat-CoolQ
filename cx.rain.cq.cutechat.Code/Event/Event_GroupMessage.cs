@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace cx.rain.cq.cutechat.Code.Event
@@ -12,7 +13,10 @@ namespace cx.rain.cq.cutechat.Code.Event
     {
         public void GroupMessage(object sender, CQGroupMessageEventArgs e)
         {
-            SocketWorker.Send($"{e.CQApi.GetGroupMemberInfo(CuteChat.GroupId, e.FromQQ.Id).Nick}：{e.Message.Text}");
+            if (e.FromGroup.Id == CuteChat.GroupId)
+            {
+                SocketWorker.Send($"{e.CQApi.GetGroupMemberInfo(CuteChat.GroupId, e.FromQQ.Id).Nick}：{e.Message.ToSendString()}");
+            }
         }
     }
 }
