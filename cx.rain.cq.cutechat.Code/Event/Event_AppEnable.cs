@@ -21,7 +21,11 @@ namespace cx.rain.cq.cutechat.Code.Event
             CuteChat.Socket.Bind(new IPEndPoint(IPAddress.Any, CuteChat.Port));
             CuteChat.Socket.Listen(233);
 
-            CuteChat.Socket.BeginAccept(SocketWorker.OnReceive, CuteChat.Socket);
+            Thread thread = new Thread(() =>
+            {
+                CuteChat.Socket.BeginAccept(SocketWorker.OnReceive, CuteChat.Socket);
+            });
+            thread.Start();
 
             CuteChat.Api = e.CQApi;
             CuteChat.Log = e.CQLog;
