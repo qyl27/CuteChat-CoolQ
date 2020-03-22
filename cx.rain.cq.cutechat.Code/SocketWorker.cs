@@ -3,21 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace cx.rain.cq.cutechat.Code
 {
     class SocketWorker
     {
-        public static void Accept()
-        {
-            while (true)
-            {
-                CuteChat.Socket.BeginAccept(OnReceive, CuteChat.Socket);
-            }
-        }
-
         public static void OnReceive(IAsyncResult ar)
         {
             try
@@ -53,7 +43,16 @@ namespace cx.rain.cq.cutechat.Code
             var bytes = Encoding.UTF8.GetBytes(str);
             foreach (var socket in CuteChat.Sockets)
             {
-                socket.Send(bytes);
+                try
+                {
+                    if (socket.Connected)
+                    {
+                        socket.Send(bytes);
+                    }
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }
