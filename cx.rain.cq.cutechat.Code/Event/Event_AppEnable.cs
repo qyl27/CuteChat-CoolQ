@@ -24,6 +24,7 @@ namespace cx.rain.cq.cutechat.Code.Event
             CuteChat.Socket.BeginAccept(SocketWorker.OnReceive, CuteChat.Socket);
 
             CuteChat.Api = e.CQApi;
+            CuteChat.Log = e.CQLog;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace cx.rain.cq.cutechat.Code
                     int real_recv = 0;
 
                     real_recv = client.Receive(recv_buffer);
-                    message_data = Encoding.Default.GetString(recv_buffer, 0, real_recv);
+                    message_data = Encoding.UTF8.GetString(recv_buffer, 0, real_recv);
 
                     if (message_data != "")
                     {
@@ -45,10 +45,7 @@ namespace cx.rain.cq.cutechat.Code
             {
                 try
                 {
-                    if (socket.Connected)
-                    {
-                        socket.Send(bytes);
-                    }
+                    socket.Send(bytes);
                 }
                 catch (Exception)
                 {

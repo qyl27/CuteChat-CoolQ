@@ -18,5 +18,6 @@ namespace cx.rain.cq.cutechat.Code
         public static readonly int Port = 35423;
 
         public static CQApi Api = null;
+        public static CQLog Log = null;
     }
 }
