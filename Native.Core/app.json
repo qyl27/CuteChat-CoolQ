@@ -1,0 +1,43 @@
+{
+	"ret": 1,
+	"apiver": 9,
+	"name": "CuteChat",
+	"version": "1.0.0",
+	"version_id": 1,
+	"author": "秋雨落",
+	"description": "QQ和Minecraft服务器互通。",
+	"event": [
+		{
+			"id": 1,
+			"type": 2,
+			"name": "群消息处理",
+			"function": "_eventGroupMsg",
+			"priority": 30000
+		},
+		{
+			"id": 3,
+			"type": 1003,
+			"name": "应用已被启用",
+			"priority": 30000,
+			"function": "_eventEnable"
+		},
+		{
+			"id": 4,
+			"type": 1004,
+			"name": "应用将被停用",
+			"priority": 30000,
+			"function": "_eventDisable"
+		}
+	],
+	"menu": [
+		//{
+		//	"name": "选项",
+		//	"function": "_menuSettings"
+		//}
+	],
+	"status": [],
+	"auth": [
+		101, 
+		130
+	]
+}
